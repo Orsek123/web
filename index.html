@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ondřej Matula — Platform / Infrastructure Engineer</title>
+<meta name="description" content="Ondřej Matula — Senior Platform and Infrastructure Engineer focused on internal developer platforms, automation, databases and reliable infrastructure.">
+<link rel="canonical" href="https://matula.website">
+<meta name="theme-color" id="themeColor" content="#F5F7FA">
+
+<!-- favicon: brand dot -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%230D1620'/%3E%3Ccircle%20cx='16'%20cy='16'%20r='6'%20fill='%230E7C86'/%3E%3C/svg%3E">
+
+<!-- open graph / twitter -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Ondřej Matula — Platform / Infrastructure Engineer">
+<meta property="og:description" content="Senior Platform and Infrastructure Engineer building internal developer platforms, automation and reliable infrastructure at scale.">
+<meta property="og:url" content="https://matula.website">
+<meta property="og:image" content="https://matula.website/ondrej-matula.png">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ondřej Matula — Platform / Infrastructure Engineer">
+<meta name="twitter:description" content="Senior Platform and Infrastructure Engineer building internal developer platforms, automation and reliable infrastructure at scale.">
+<meta name="twitter:image" content="https://matula.website/ondrej-matula.png">
+
+<!-- theme init (before paint, avoids FOUC) -->
+<script>
+(function(){
+  var stored;try{stored=localStorage.getItem('theme');}catch(e){}
+  var dark=stored?stored==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if(dark)document.documentElement.setAttribute('data-theme','dark');
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Ondřej Matula",
+  "jobTitle":"Senior Platform / Infrastructure Engineer",
+  "url":"https://matula.website",
+  "image":"https://matula.website/ondrej-matula.png",
+  "email":"mailto:matula.o@seznam.cz",
+  "worksFor":[
+    {"@type":"Organization","name":"Seznam.cz"},
+    {"@type":"Organization","name":"Netfusion"}
+  ],
+  "address":{"@type":"PostalAddress","addressLocality":"Brno","addressCountry":"CZ"},
+  "sameAs":[
+    "https://www.linkedin.com/in/ond%C5%99ej-matula-577860158/",
+    "https://github.com/Orsek123",
+    "https://matula.website"
+  ],
+  "knowsAbout":["Platform Engineering","Kubernetes","OpenStack","Python","Databases","Automation","Observability"]
+}
+</script>
+<style>
+:root{
+  --bg:#F5F7FA; --surface:#FFFFFF; --surface2:#EEF2F7;
+  --ink:#1A2332; --ink2:#4B5A6E; --muted:#5E6E85;
+  --line:#DDE4EC; --accent:#0E7C86; --accent-soft:#E0F1F2;
+  --green:#16A34A; --green-soft:#E6F6EC; --amber:#B45309; --amber-soft:#FBEEDD;
+  --code-bg:#10202B; --code-key:#7DD3C0; --code-str:#F4BF75; --code-num:#C792EA; --code-punc:#5D7A8C;
+  --shadow:0 1px 2px rgba(16,32,43,.06),0 8px 24px rgba(16,32,43,.07);
+  --radius:14px;
+}
+[data-theme="dark"]{
+  --bg:#0D1620; --surface:#14202C; --surface2:#1B2937;
+  --ink:#E6EDF5; --ink2:#A9B8C9; --muted:#6E8096;
+  --line:#253545; --accent:#3FBFC9; --accent-soft:#123A41;
+  --green:#3DD073; --green-soft:#10301D; --amber:#E8A34B; --amber-soft:#3A2A12;
+  --code-bg:#0A141C;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--ink);
+  line-height:1.6; font-size:16px; transition:background .3s,color .3s;
+}
+::selection{background:var(--accent);color:#fff}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.15}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:var(--accent)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;gap:8px;height:56px;max-width:1060px;margin:0 auto;padding:0 24px}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;color:var(--ink);text-decoration:none;margin-right:auto;display:flex;align-items:center;gap:8px}
+.nav-brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.nav-links{display:flex;gap:2px}
+.nav-links a{
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink2);text-decoration:none;
+  padding:6px 10px;border-radius:8px;transition:background .15s,color .15s;
+}
+.nav-links a:hover{background:var(--surface2);color:var(--ink)}
+.nav-links a.active{background:var(--accent-soft);color:var(--accent)}
+#themeToggle,.nav-toggle{
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;
+  width:34px;height:34px;border-radius:10px;font-size:15px;display:grid;place-items:center;transition:transform .15s;
+}
+#themeToggle:hover,.nav-toggle:hover{transform:translateY(-1px)}
+.nav-toggle{display:none;font-size:17px}
+@media(max-width:760px){
+  .nav-toggle{display:grid}
+  .nav-links{
+    position:absolute;top:56px;left:0;right:0;flex-direction:column;gap:2px;display:none;
+    background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);padding:8px 24px 12px;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:11px 12px;font-size:13.5px}
+}
+.skip-link{
+  position:absolute;left:8px;top:-56px;z-index:100;background:var(--accent);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 16px;border-radius:0 0 10px 10px;
+  text-decoration:none;transition:top .15s;
+}
+.skip-link:focus{top:0}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--accent);display:inline-block}
+.hero h1{font-size:clamp(36px,5.4vw,56px);font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+.hero-intro{display:grid;grid-template-columns:124px 1fr;gap:18px;align-items:stretch;margin-bottom:22px}
+.hero-avatar{
+  width:100%;height:100%;min-height:180px;display:block;object-fit:cover;object-position:center 24%;
+  border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow);
+}
+@media(max-width:520px){
+  .hero-intro{grid-template-columns:88px 1fr;gap:14px}
+  .hero-avatar{min-height:160px;border-radius:14px}
+}
+.hero .role{font-size:19px;color:var(--ink2);margin-bottom:22px;max-width:44ch}
+.hero-intro .role{margin-bottom:0}
+.hero .role strong{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  font-family:'JetBrains Mono',monospace;font-size:13.5px;text-decoration:none;padding:11px 18px;
+  border-radius:10px;transition:transform .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+
+/* JSON card */
+.json-card{
+  background:var(--code-bg);border-radius:var(--radius);box-shadow:var(--shadow);
+  overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:13px;
+}
+.json-head{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.json-head .led{width:10px;height:10px;border-radius:50%}
+.json-head .led:nth-child(1){background:#F26D6D}.json-head .led:nth-child(2){background:#F4BF75}.json-head .led:nth-child(3){background:#5FD38A}
+.json-head .req{color:#8FA6B8;margin-left:8px;font-size:12px}
+.json-head .status{margin-left:auto;color:#5FD38A;font-size:12px}
+.json-body{padding:18px 20px;color:#C7D5E0;line-height:1.75;white-space:pre;overflow-x:auto}
+.json-body .k{color:var(--code-key)}.json-body .s{color:var(--code-str)}.json-body .n{color:var(--code-num)}.json-body .p{color:var(--code-punc)}
+.cursor{display:inline-block;width:8px;height:15px;background:#5FD38A;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- impact ---------- */
+.impact-cap{font-size:13px;color:var(--muted);margin:40px 0 12px;letter-spacing:0}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0}
+@media(max-width:820px){.impact-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.impact-grid{grid-template-columns:1fr}}
+.impact-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.impact-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--accent)}
+.impact-card .num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin-bottom:12px}
+.impact-card h3{font-size:16px;margin-bottom:7px}
+.impact-card p{font-size:13.5px;line-height:1.5;color:var(--ink2)}
+
+/* ---------- sections ---------- */
+section{padding:64px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.01em}
+.sec-head .path{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--muted)}
+
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:26px;
+}
+.about-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:18px}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.about-grid p{color:var(--ink2);margin-bottom:12px}
+.about-grid p:last-child{margin-bottom:0}
+.about-grid p strong{color:var(--ink)}
+.side-card h3{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.kv:last-child{border-bottom:0}
+.kv .k{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+.kv .v{color:var(--ink);text-align:right}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative;margin-left:10px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--line))}
+.node{position:relative;padding:0 0 22px 42px}
+.node::before{
+  content:"";position:absolute;left:2px;top:22px;width:16px;height:16px;border-radius:50%;
+  background:var(--surface);border:3px solid var(--muted);z-index:1;
+}
+.node.running::before{border-color:var(--green);box-shadow:0 0 0 5px var(--green-soft)}
+.role-card{cursor:pointer;transition:transform .18s,border-color .18s}
+.role-card:hover{transform:translateX(4px);border-color:var(--accent)}
+.role-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.role-top h3{font-size:17.5px;font-weight:600}
+.role-top .org{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);margin-top:2px}
+.role-meta{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;padding:4px 9px;border-radius:99px;font-weight:600}
+.badge.run{background:var(--green-soft);color:var(--green)}
+.badge.stop{background:var(--surface2);color:var(--muted)}
+.badge.own{background:var(--amber-soft);color:var(--amber)}
+.dates{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+.chev{color:var(--muted);transition:transform .25s;font-size:12px}
+.role-card.open .chev{transform:rotate(90deg)}
+.role-sum{color:var(--ink2);font-size:14.5px;margin-top:10px}
+.role-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1)}
+.role-body-inner{padding-top:16px;border-top:1px dashed var(--line);margin-top:16px}
+.role-body h4{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin:14px 0 8px}
+.role-body h4:first-child{margin-top:0}
+.role-body ul{list-style:none}
+.role-body li{position:relative;padding-left:18px;color:var(--ink2);font-size:14.5px;margin-bottom:6px}
+.role-body li::before{content:"▸";position:absolute;left:0;color:var(--accent);font-size:11px;top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.tag{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:4px 10px;border-radius:8px;
+  background:var(--surface2);color:var(--ink2);border:1px solid var(--line);
+}
+.hint{font-size:13px;color:var(--muted);margin:0 0 18px 2px}
+
+/* ---------- skills ---------- */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.skill-card h3{font-size:14.5px;margin-bottom:12px;display:flex;gap:9px;align-items:center}
+.skill-card h3 .ico{font-size:16px}
+.skill-card .tag{transition:transform .15s,background .15s,color .15s;cursor:default}
+.skill-card .tag:hover{background:var(--accent);color:#fff;transform:translateY(-2px);border-color:var(--accent)}
+
+/* ---------- projects ---------- */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.proj-grid{grid-template-columns:1fr}}
+.proj-card h3{font-size:15.5px;margin-bottom:8px}
+.proj-card p{color:var(--ink2);font-size:14.5px}
+.proj-card .mono-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+
+/* ---------- edu grid ---------- */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:860px){.edu-grid{grid-template-columns:1fr}}
+.edu-card h3{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.edu-item{padding:10px 0;border-bottom:1px dashed var(--line)}
+.edu-item:last-child{border-bottom:0}
+.edu-item .t{font-weight:600;font-size:14.5px}
+.edu-item .d{font-size:13.5px;color:var(--ink2)}
+.edu-item .m{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);margin-top:2px}
+
+/* ---------- footer ---------- */
+footer{margin-top:70px;border-top:1px solid var(--line);background:var(--surface)}
+.foot-inner{max-width:1060px;margin:0 auto;padding:44px 24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.foot-inner .big{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700}
+.foot-links{display:flex;gap:12px;flex-wrap:wrap}
+.foot-note{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);text-align:center;padding:0 24px 22px}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- print ---------- */
+@media print{
+  nav,.skip-link,#themeToggle,.nav-toggle,.hint,.json-card,.foot-links,.impact-cap,.impact-grid{display:none!important}
+  *{box-shadow:none!important;background:transparent!important;color:#000!important;transition:none!important}
+  body{font-size:12px;line-height:1.45}
+  .wrap,.foot-inner{max-width:100%;padding:0 12px}
+  section{padding:18px 0 0}
+  .card,.impact-card,.edu-card,.proj-card{border:1px solid #bbb!important;padding:14px;break-inside:avoid}
+  .role-body{max-height:none!important;overflow:visible!important}
+  .role-body-inner{padding-top:12px;margin-top:12px}
+  .node{padding-bottom:14px;break-inside:avoid}
+  .impact-card::after,.timeline::before{display:none!important}
+  a{color:#000!important;text-decoration:none}
+  .reveal{opacity:1!important;transform:none!important}
+  footer{margin-top:24px;border-top:1px solid #bbb}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#top">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top"><span class="dot"></span>ondrej-matula</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">/about</a>
+      <a href="#timeline">/timeline</a>
+      <a href="#skills">/skills</a>
+      <a href="#projects">/projects</a>
+      <a href="#education">/education</a>
+    </div>
+    <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    <button id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">◐</button>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">PLATFORM · INFRASTRUCTURE · AUTOMATION</div>
+      <div class="hero-intro">
+        <img class="hero-avatar" src="ondrej-matula.png" alt="Portrait of Ondřej Matula" width="988" height="1024">
+        <div>
+          <h1>Ondřej Matula</h1>
+          <p class="role"><strong>Senior Platform / Infrastructure Engineer</strong> building scalable infrastructure platforms that enable development teams through automation and self-service.</p>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:matula.o@seznam.cz">Email</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/ond%C5%99ej-matula-577860158/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/Orsek123" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href="https://netfusion.cz" target="_blank" rel="noopener">Netfusion ↗</a>
+      </div>
+    </div>
+    <div class="json-card reveal">
+      <div class="json-head">
+        <span class="led"></span><span class="led"></span><span class="led"></span>
+        <span class="req">GET /api/v1/engineers/ondrej-matula</span>
+        <span class="status">200 OK</span>
+      </div>
+      <div class="json-body" id="jsonBody"></div>
+    </div>
+  </div>
+
+  <p class="impact-cap">How I turn infrastructure complexity into reliable products</p>
+  <div class="impact-grid">
+    <div class="impact-card reveal">
+      <div class="num">01 / DESIGN</div>
+      <h3>Platform architecture</h3>
+      <p>Internal developer platforms, service catalogs and infrastructure APIs built from concept to production.</p>
+    </div>
+    <div class="impact-card reveal">
+      <div class="num">02 / AUTOMATE</div>
+      <h3>Self-service delivery</h3>
+      <p>Repeatable provisioning and lifecycle workflows that reduce delivery from days to minutes.</p>
+    </div>
+    <div class="impact-card reveal">
+      <div class="num">03 / OPERATE</div>
+      <h3>Reliability at scale</h3>
+      <p>Production ownership of database services, backed by observability, SLOs and operational tooling.</p>
+    </div>
+    <div class="impact-card reveal">
+      <div class="num">04 / LEAD</div>
+      <h3>Technical direction</h3>
+      <p>Architecture, roadmaps and migrations coordinated across software, infrastructure and service teams.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head"><h2>About</h2><span class="path mono">~/about</span></div>
+  <div class="about-grid">
+    <div class="card reveal">
+      <p>Throughout my career, I have combined <strong>software engineering, infrastructure architecture and operations</strong> — from managing large-scale production environments to designing internal platforms used across the company.</p>
+      <p>At <strong>Seznam.cz</strong>, I design and operate database services powering 750+ production clusters with peak traffic exceeding 1M requests per second. I led the development of <strong>APOLLO</strong>, an internal infrastructure automation platform, and currently lead <strong>SAPI</strong> — its next-generation successor, a developer platform and service catalog for Seznam's private cloud. Alongside this, I run <strong>Netfusion</strong>, my own IT services company delivering infrastructure solutions to business customers.</p>
+      <p>I enjoy solving complex infrastructure challenges, improving developer experience through automation, and turning operational problems into reliable engineering solutions.</p>
+    </div>
+    <div class="card side-card reveal">
+      <h3>Quick facts</h3>
+      <div class="kv"><span class="k">location</span><span class="v">Czech Republic</span></div>
+      <div class="kv"><span class="k">current</span><span class="v">Seznam.cz · Netfusion</span></div>
+      <div class="kv"><span class="k">focus</span><span class="v">Platform engineering</span></div>
+      <div class="kv"><span class="k">languages</span><span class="v">Czech (native) · English (B2)</span></div>
+      <div class="kv"><span class="k">community</span><span class="v">KubeCon · LinuxDays</span></div>
+      <div class="kv"><span class="k">talks</span><span class="v">Internal tech talks</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="sec-head"><h2>Career pipeline</h2><span class="path mono">~/timeline · 2009 → present</span></div>
+  <p class="hint">Click a role for details.</p>
+  <div class="timeline">
+
+    <div class="node running reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>Founder &amp; Head of IT / IT Director</h3>
+            <div class="org">netfusion.cz</div>
+          </div>
+          <div class="role-meta">
+            <span class="badge own">Own company</span>
+            <span class="badge run">Current</span>
+            <span class="dates">03/2025 – present</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Founded and lead Netfusion, an IT services company delivering infrastructure solutions to business customers — full IT strategy, architecture and hands-on delivery.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Own the complete IT function — strategy, architecture decisions, infrastructure delivery and daily operations</li>
+            <li>Design and implement IT solutions covering networks, servers, virtualization, security and cloud technologies</li>
+            <li>Lead technical projects from requirements and architecture design through implementation and long-term operation</li>
+            <li>Act as the primary technical owner, coordinating customers, vendors and stakeholders</li>
+          </ul>
+          <h4>Selected projects</h4>
+          <ul>
+            <li>End-to-end network infrastructure modernization for a residential property management client — hardware refresh, configuration standardization, monitoring, full documentation handover</li>
+            <li>Network extension for EV charging infrastructure — dedicated segmented subnet for wallboxes with secure, isolated Wi-Fi access for end users</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="node running reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>Senior Platform / Infrastructure Engineer · Technical Lead</h3>
+            <div class="org">seznam.cz</div>
+          </div>
+          <div class="role-meta">
+            <span class="badge run">Current</span>
+            <span class="dates">04/2021 – present</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Design and operation of internal database services (MySQL &amp; Redis as a Service, 750+ clusters, 1M+ RPS). Technical lead of SAPI, architect of APOLLO.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Database services</h4>
+          <ul>
+            <li>MySQL as a Service — 400+ ProxySQL/MariaDB production clusters; designed an external SLO monitoring system validating availability and exporting Prometheus metrics</li>
+            <li>Redis as a Service — 350+ production deployments (Standalone, Sentinel, Redis Cluster)</li>
+            <li>Platform architecture, backend development, automation, reliability and operational improvements</li>
+          </ul>
+          <h4>SAPI — internal developer platform (technical lead)</h4>
+          <ul>
+            <li>Next-generation developer platform and service catalog for Seznam's private cloud, replacing APOLLO</li>
+            <li>Own architecture, technical direction, roadmap and migration strategy; develop backend services and APIs</li>
+            <li>Designed resource-based service model, lifecycle management, provisioning workflows, access management, billing and ownership integration</li>
+          </ul>
+          <h4>APOLLO — infrastructure automation platform (architect &amp; developer)</h4>
+          <ul>
+            <li>REST API for infrastructure lifecycle management, automated provisioning, service configuration management</li>
+            <li>Integrations: OpenStack, Kubernetes, S3, OAuth, IPAM, DNS, TLS, Git</li>
+            <li>Impact: provisioning reduced from days to minutes, standardized self-service, scaled to hundreds of clusters</li>
+          </ul>
+          <h4>Stack</h4>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Kubernetes</span><span class="tag">OpenStack</span><span class="tag">Pulumi</span><span class="tag">Ansible</span><span class="tag">Helm</span><span class="tag">Prometheus</span><span class="tag">Grafana</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>System Engineer</h3>
+            <div class="org">seznam.cz</div>
+          </div>
+          <div class="role-meta">
+            <span class="dates">09/2018 – 04/2021</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Managed infrastructure for Seznam's largest services — Seznam.cz, Novinky.cz, Seznam Zprávy, Sport.cz and more.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Production infrastructure management and service reliability</li>
+            <li>Infrastructure automation and database administration</li>
+            <li>Monitoring and observability improvements — moving operational workflows toward automation</li>
+          </ul>
+          <h4>Stack</h4>
+          <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Marathon</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Helm</span><span class="tag">Python</span><span class="tag">MySQL</span><span class="tag">Redis</span><span class="tag">MongoDB</span><span class="tag">Prometheus</span><span class="tag">Thanos</span><span class="tag">Grafana</span><span class="tag">Alertmanager</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>External Specialist</h3>
+            <div class="org">Student Agency</div>
+          </div>
+          <div class="role-meta">
+            <span class="dates">09/2018 – 11/2020 · part-time</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Infrastructure automation and deployment workflows, alongside the role at Seznam.cz.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Responsibilities</h4>
+          <ul>
+            <li>Designed and maintained application orchestration solutions using Marathon</li>
+            <li>Automated deployments using GitLab CI/CD</li>
+            <li>Infrastructure automation and tooling projects</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>Infrastructure Lead / System Administrator</h3>
+            <div class="org">Student Agency</div>
+          </div>
+          <div class="role-meta">
+            <span class="dates">10/2016 – 09/2018</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Led a team of three engineers responsible for system administration and network operations — 300+ servers, 1000+ network devices.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Scope</h4>
+          <ul>
+            <li>Managed a team of three engineers</li>
+            <li>300+ servers (Debian, RHEL, Windows) · 1000+ network devices (Cisco, Dell, MikroTik)</li>
+          </ul>
+          <h4>Stack</h4>
+          <div class="tags"><span class="tag">VMware</span><span class="tag">Proxmox</span><span class="tag">Docker</span><span class="tag">Tomcat</span><span class="tag">Apache</span><span class="tag">HAProxy</span><span class="tag">Active Directory</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MSSQL</span><span class="tag">OpenLDAP</span><span class="tag">FreeRADIUS</span><span class="tag">Postfix</span><span class="tag">Ansible</span><span class="tag">Jenkins</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>IT Administrator</h3>
+            <div class="org">CAMEA</div>
+          </div>
+          <div class="role-meta">
+            <span class="dates">10/2015 – 09/2016</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Infrastructure for business operations and transportation systems — including high-speed wireless and optical networks for Prague public transport.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Scope</h4>
+          <ul>
+            <li>80+ servers (Windows Server, Debian) · 1000+ network devices (Cisco, DCN, MikroTik, Racom, SIKLU)</li>
+            <li>Designed and implemented high-speed wireless and optical networks for Prague public transport systems</li>
+            <li>IT support for internal users and customers</li>
+          </ul>
+          <h4>Stack</h4>
+          <div class="tags"><span class="tag">VMware</span><span class="tag">Hyper-V</span><span class="tag">Active Directory</span><span class="tag">GPO</span><span class="tag">DNS</span><span class="tag">IIS</span><span class="tag">DHCP</span><span class="tag">Zabbix</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="node reveal">
+      <div class="card role-card" data-role>
+        <div class="role-top">
+          <div>
+            <h3>Early career — Developer &amp; SysAdmin</h3>
+            <div class="org">Lionreality · Project Nemesis</div>
+          </div>
+          <div class="role-meta">
+            <span class="dates">06/2009 – 08/2015</span>
+            <span class="chev">▶</span>
+          </div>
+        </div>
+        <p class="role-sum">Where it all started — Linux administration, web development and game server engineering.</p>
+        <div class="role-body"><div class="role-body-inner">
+          <h4>Lionreality (09/2013 – 08/2015)</h4>
+          <ul>
+            <li>Network and system administration, web development (HTML, CSS, PHP, MySQL), internal IT support</li>
+          </ul>
+          <h4>Project Nemesis (06/2009 – 10/2011)</h4>
+          <ul>
+            <li>Debian server administration, shell automation, MySQL administration and query optimization</li>
+            <li>World of Warcraft server development (Mangos, TrinityCore)</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head"><h2>Core skills</h2><span class="path mono">~/skills</span></div>
+  <div class="skill-grid">
+    <div class="card skill-card reveal">
+      <h3>Platform engineering</h3>
+      <div class="tags"><span class="tag">Internal developer platforms</span><span class="tag">Self-service infrastructure</span><span class="tag">Service catalogs</span><span class="tag">Infrastructure APIs</span><span class="tag">Automation workflows</span><span class="tag">Platform architecture</span></div>
+    </div>
+    <div class="card skill-card reveal">
+      <h3>Software engineering</h3>
+      <div class="tags"><span class="tag">Python</span><span class="tag">REST APIs</span><span class="tag">Backend development</span><span class="tag">Service-oriented architecture</span></div>
+    </div>
+    <div class="card skill-card reveal">
+      <h3>Cloud &amp; infrastructure</h3>
+      <div class="tags"><span class="tag">Kubernetes</span><span class="tag">OpenStack</span><span class="tag">Helm</span><span class="tag">Terraform</span><span class="tag">Pulumi</span><span class="tag">Ansible</span><span class="tag">Docker</span></div>
+    </div>
+    <div class="card skill-card reveal">
+      <h3>Databases</h3>
+      <div class="tags"><span class="tag">MySQL / MariaDB</span><span class="tag">Redis</span><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span><span class="tag">MSSQL</span></div>
+    </div>
+    <div class="card skill-card reveal">
+      <h3>Observability</h3>
+      <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Thanos</span><span class="tag">Alertmanager</span><span class="tag">SLO monitoring</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head"><h2>Signature platforms</h2><span class="path mono">~/projects</span></div>
+  <div class="proj-grid">
+    <div class="card proj-card reveal">
+      <div class="mono-lbl">seznam.cz · service catalog</div>
+      <h3>SAPI — next-gen internal developer platform</h3>
+      <p>Developer platform and service catalog for Seznam's private cloud. Unified self-service interface, standardized provisioning, resource-based service model with lifecycle, access, billing and ownership management. Technical lead — architecture, roadmap and migration strategy.</p>
+    </div>
+    <div class="card proj-card reveal">
+      <div class="mono-lbl">seznam.cz · automation</div>
+      <h3>APOLLO — infrastructure automation platform</h3>
+      <p>Internal platform provisioning and managing MySQL, Redis and Monitoring as a Service. REST API for lifecycle management, integrations with OpenStack, Kubernetes, S3, OAuth, IPAM, DNS, TLS and Git. Reduced provisioning from days to minutes across hundreds of clusters.</p>
+    </div>
+    <div class="card proj-card reveal">
+      <div class="mono-lbl">seznam.cz · reliability</div>
+      <h3>External SLO monitoring system</h3>
+      <p>Designed and developed an independent monitoring system validating database service availability from the outside and exporting Prometheus metrics — the source of truth for MySQL-as-a-Service SLOs across 400+ clusters.</p>
+    </div>
+    <div class="card proj-card reveal">
+      <div class="mono-lbl">netfusion · networking</div>
+      <h3>End-to-end infrastructure delivery</h3>
+      <p>Complete project ownership from analysis and design to implementation and documented handover — network modernization for property management clients and segmented networks for EV charging infrastructure with isolated end-user Wi-Fi access.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-head"><h2>Education &amp; credentials</h2><span class="path mono">~/education</span></div>
+  <div class="edu-grid">
+    <div class="card edu-card reveal">
+      <h3>Education</h3>
+      <div class="edu-item">
+        <div class="t">Brno University of Technology (VUT v Brně)</div>
+        <div class="d">Information Technology</div>
+        <div class="m">2014 – 2015</div>
+      </div>
+      <div class="edu-item">
+        <div class="t">Secondary Technical School Brno, Purkyňova</div>
+        <div class="d">Information Technology — Programming and Databases</div>
+        <div class="m">2010 – 2014</div>
+      </div>
+      <h3 style="margin-top:22px">Community</h3>
+      <div class="edu-item">
+        <div class="d">Attendee of <strong>KubeCon + CloudNativeCon</strong> and <strong>LinuxDays</strong>; regular speaker at internal tech talks — platform architecture, project deep-dives and knowledge sharing.</div>
+      </div>
+    </div>
+    <div class="card edu-card reveal">
+      <h3>Certifications</h3>
+      <div class="edu-item">
+        <div class="t">MikroTik MTCINE</div>
+        <div class="d">Certified Inter-Networking Engineer</div>
+        <div class="m">07/2017 · ID 1707INE5349</div>
+      </div>
+      <div class="edu-item">
+        <div class="t">MikroTik MTCRE</div>
+        <div class="d">Certified Routing Engineer</div>
+        <div class="m">07/2017 · ID 1707RE5257</div>
+      </div>
+      <div class="edu-item">
+        <div class="t">MikroTik MTCNA</div>
+        <div class="d">Certified Network Associate</div>
+        <div class="m">07/2017 · ID 1707NA5193</div>
+      </div>
+      <div class="edu-item">
+        <div class="t">Cisco CCNA-1</div>
+        <div class="d">Faculty of Information Technology, VUT Brno</div>
+        <div class="m">01/2012</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="big">Get in touch</div>
+      <div style="color:var(--ink2);font-size:14.5px">Open to platform engineering and infrastructure roles. Happy to talk about a project.</div>
+    </div>
+    <div class="foot-links">
+      <a class="btn btn-primary" href="mailto:matula.o@seznam.cz">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/ond%C5%99ej-matula-577860158/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="https://github.com/Orsek123" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="foot-note mono">© <span id="year"></span> Ondřej Matula · Brno, Czech Republic</div>
+</footer>
+
+<script>
+// ---------- theme ----------
+const root=document.documentElement;
+const toggle=document.getElementById('themeToggle');
+const themeColorMeta=document.getElementById('themeColor');
+function syncTheme(){
+  const dark=root.getAttribute('data-theme')==='dark';
+  toggle.setAttribute('aria-pressed',String(dark));
+  toggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+  if(themeColorMeta) themeColorMeta.setAttribute('content',dark?'#0D1620':'#F5F7FA');
+}
+syncTheme();
+toggle.addEventListener('click',()=>{
+  const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+  root.setAttribute('data-theme',next);
+  try{localStorage.setItem('theme',next);}catch(e){}
+  syncTheme();
+});
+
+// ---------- mobile nav ----------
+const navToggle=document.getElementById('navToggle');
+const navMenu=document.getElementById('navLinks');
+function closeNav(){navMenu.classList.remove('open');navToggle.setAttribute('aria-expanded','false');}
+navToggle.addEventListener('click',()=>{
+  const open=navMenu.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded',String(open));
+});
+navMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeNav));
+
+// ---------- year in footer ----------
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// ---------- JSON hero typing ----------
+const jsonLines=[
+  ['{',''],
+  ['  "name"',' : "Ondřej Matula",'],
+  ['  "role"',' : "Senior Platform / Infrastructure Engineer",'],
+  ['  "location"',' : "Czech Republic",'],
+  ['  "current"',' : ["Seznam.cz", "Netfusion"],'],
+  ['  "platforms"',' : ["APOLLO", "SAPI"],'],
+  ['  "focus"',' : ["platforms", "automation", "AI"],'],
+  ['  "stack"',' : ["python", "k8s", "openstack"],'],
+  ['  "experience_years"',' : '+(new Date().getFullYear()-2009)],
+  ['}','']
+];
+const jb=document.getElementById('jsonBody');
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function colorize(key,rest){
+  const k=key.startsWith('  ')?'  <span class="k">'+key.trim()+'</span>':'<span class="p">'+key+'</span>';
+  const r=rest
+    .replace(/"([^"]*)"/g,'<span class="s">"$1"</span>')
+    .replace(/\b(\d+)\b/g,'<span class="n">$1</span>')
+    .replace(/([:\[\],{}])/g,'<span class="p">$1</span>');
+  return k+r;
+}
+if(reduced){
+  jb.innerHTML=jsonLines.map(l=>colorize(l[0],l[1])).join('\n');
+}else{
+  let i=0;
+  jb.innerHTML='<span class="cursor"></span>';
+  const typer=setInterval(()=>{
+    if(i>=jsonLines.length){clearInterval(typer);return;}
+    const done=jsonLines.slice(0,i+1).map(l=>colorize(l[0],l[1])).join('\n');
+    jb.innerHTML=done+(i<jsonLines.length-1?'\n<span class="cursor"></span>':' <span class="cursor"></span>');
+    i++;
+  },220);
+}
+
+// ---------- reveal on scroll ----------
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---------- expandable roles ----------
+document.querySelectorAll('[data-role]').forEach(card=>{
+  const body=card.querySelector('.role-body');
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  card.setAttribute('aria-expanded','false');
+  function toggleRole(){
+    const open=card.classList.toggle('open');
+    card.setAttribute('aria-expanded',String(open));
+    body.style.maxHeight=open?body.scrollHeight+'px':'0px';
+  }
+  card.addEventListener('click',e=>{
+    if(e.target.closest('a'))return;
+    toggleRole();
+  });
+  card.addEventListener('keydown',e=>{
+    if(e.target.closest('a'))return;
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleRole();}
+  });
+});
+
+// ---------- keep layout correct on resize ----------
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>760) closeNav();
+  document.querySelectorAll('[data-role].open').forEach(card=>{
+    const body=card.querySelector('.role-body');
+    body.style.maxHeight=body.scrollHeight+'px';
+  });
+});
+
+// ---------- active nav link ----------
+const sections=[...document.querySelectorAll('section[id]')];
+const navLinks=[...document.querySelectorAll('.nav-links a')];
+const navIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(s=>navIO.observe(s));
+</script>
+</body>
+</html>
